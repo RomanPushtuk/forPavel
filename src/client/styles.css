@@ -1,0 +1,19 @@
+body {
+  padding: 0;
+  margin: 0;
+}
+.row {
+  margin: 0;
+}
+.checked-true {
+  text-decoration : line-through;
+  color: #5a5a5a;
+}
+
+.accordionPadding {
+  margin-top: 56px;
+}
+
+.datepickerSearchButton {
+  margin-top: 10px;
+}
