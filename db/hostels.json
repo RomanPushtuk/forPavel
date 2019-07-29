@@ -1,8 +1,0 @@
-{"_id":{"$oid":"5d1def8e16540b5a0ca5bc99"},"name":"Гостиница \"Сочи\"","stars":{"$numberInt":"4"},"rooms":{"$numberInt":"15"},"address":"г.Сочи ул.Приморская д.25г"}
-{"_id":{"$oid":"5d1df01116540b5a0ca5bc9b"},"name":"Хостел \"Море\"","stars":{"$numberInt":"3"},"rooms":{"$numberInt":"10"},"address":"г.Сочи ул.Приморская д.8"}
-{"_id":{"$oid":"5d1df05816540b5a0ca5bc9c"},"name":"Хостел \"Море социализма\"","stars":{"$numberInt":"4"},"rooms":{"$numberInt":"15"},"address":"г. Адлер ул.Войнов-Интернационалистов д.56"}
-{"_id":{"$oid":"5d1df0a616540b5a0ca5bc9d"},"name":"Гостиница \"Следственный изолятор #4\"","stars":{"$numberInt":"5"},"rooms":{"$numberInt":"5"},"address":"г.Крым ул.Лейтинанта Пряжкина д.44"}
-{"_id":{"$oid":"5d1df0d116540b5a0ca5bc9e"},"name":"Гостиница \"Плавни\"","stars":{"$numberInt":"4"},"rooms":{"$numberInt":"14"},"address":"г.Одесса ул.Пролетарская д.1"}
-{"_id":{"$oid":"5d1e679796e89e67cc6fa6cc"},"name":"Гостиница \"Луч\"","stars":{"$numberInt":"4"},"rooms":{"$numberInt":"11"},"address":"г.Сочи ул.Приморская д.6"}
-{"_id":{"$oid":"5d1f1a346dbb3e832c38a3df"},"name":"Гостиница \"Радуга\"","stars":{"$numberInt":"3"},"rooms":{"$numberInt":"14"},"address":"г.Краснодар ул.Велекоморская д.4"}
-{"_id":{"$oid":"5d1f564c36b8da2bd40232ba"},"name":"Гостиница \"Ветразь\"","stars":{"$numberInt":"4"},"rooms":{"$numberInt":"12"},"address":"г.Витебск пр.Фрунзе д.22"}
