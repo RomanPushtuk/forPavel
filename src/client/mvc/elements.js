@@ -20,6 +20,7 @@ function elements() {
   // Элементы связанные с сортировкой
   this.sortText = document.getElementById('sortText');
   this.arrowText = document.getElementById('arrowText');
+  this.arrowDate = document.getElementById('arrowDate');
   this.sortDate = document.getElementById('sortDate');
 
   // Элементы связанные с поиском

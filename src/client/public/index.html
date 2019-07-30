@@ -4,55 +4,102 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
-    <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
     <title>Туду-лист</title>
   </head>
   <body>
-
     <!-- ГЛАВНЫЙ КОНЕЙНЕР -->
     <div class="container">
       <div class="row">
         <!-- ФИЛЬТРЫ ФИЛЬТРЫ ФИЛЬТРЫ-->
         <div class="accordionPadding col-3">
           <div class="accordion" id="accordionExample">
-
             <div class="card">
               <div class="card-header row" id="headingOne">
-                  <button class="btn btn-primary col" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">Искать по тексту</button>
+                <button
+                  class="btn btn-primary col"
+                  type="button"
+                  data-toggle="collapse"
+                  data-target="#collapseOne"
+                  aria-expanded="true"
+                  aria-controls="collapseOne"
+                >
+                  Искать по тексту
+                </button>
               </div>
-              <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+              <div
+                id="collapseOne"
+                class="collapse show"
+                aria-labelledby="headingOne"
+                data-parent="#accordionExample"
+              >
                 <div class="card-body">
                   <!-- ПОИСК ПО ВВОДИОМОМУ ТЕКСТУ -->
-                  <input id="search" type="text" class="form-control" placeholder="Поиск по тексту">
+                  <input
+                    id="search"
+                    type="text"
+                    class="form-control"
+                    placeholder="Поиск по тексту"
+                  />
                 </div>
               </div>
             </div>
 
             <div class="card">
               <div class="card-header row" id="headingTwo">
-                  <button class="btn btn-primary collapsed col" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">Искать по дате</button>
+                <button
+                  class="btn btn-primary collapsed col"
+                  type="button"
+                  data-toggle="collapse"
+                  data-target="#collapseTwo"
+                  aria-expanded="false"
+                  aria-controls="collapseTwo"
+                >
+                  Искать по дате
+                </button>
               </div>
-              <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+              <div
+                id="collapseTwo"
+                class="collapse"
+                aria-labelledby="headingTwo"
+                data-parent="#accordionExample"
+              >
                 <div class="card-body row">
                   <!-- ПОИСК ЗАДАЧ ПО ОПРЕДЕЛЕННОЙ ДАТЕ -->
                   <input id="datepickerSearch"/ >
-                  <button id="datepickerSearchButton" class="btn btn-primary datepickerSearchButton col">Поиск по дате</button>
+                  <button
+                    id="datepickerSearchButton"
+                    class="btn btn-primary datepickerSearchButton col"
+                  >
+                    Поиск
+                  </button>
                 </div>
               </div>
             </div>
-
           </div>
         </div>
         <!-- КОНЕЦ ФИЛЬТРОВ КОНЕЦ ФИЛЬТРОВ-->
-
-
 
         <!-- САМА ТАБЛИЦА -->
         <div class="col-9">
           <h1>
             Лист задач
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+            <button
+              type="button"
+              class="btn btn-primary"
+              data-toggle="modal"
+              data-target="#exampleModalCenter"
+            >
               Добавить задачу
             </button>
           </h1>
@@ -61,8 +108,8 @@
             <thead class="thead-dark">
               <tr>
                 <th>Отметка</th>
-                <th id="sortText">Текст<span id='arrowText'></span></th>
-                <th id="sortDate">Дата</th>
+                <th id="sortText">Текст<span id="arrowText"></span></th>
+                <th id="sortDate">Дата m/d/y<span id="arrowDate"></span></th>
                 <th></th>
                 <th></th>
               </tr>
@@ -77,22 +124,39 @@
     <!-- КОНЕЦ ГЛАВНОГО КОНЕЙНЕРА -->
 
     <!-- МОДАЛЬНОЕ ОКНО ПО ДОБАВЛЕНЮ ДАННЫХ -->
-    <div  class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div
+      class="modal fade"
+      id="exampleModalCenter"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalCenterTitle"
+      aria-hidden="true"
+    >
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <h4 class="modal-title" id="exampleModalLongTitle">Добавление данных</h4>
-            <button id="closeAddModal" type="button"class="close" data-dismiss="modal" aria-label="Close">
+            <button
+              id="closeAddModal"
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
-
             <!-- Форма в модельном окне -->
             <form class="">
               <div class="form-group">
                 <label for="inputName">Имя задания</label>
-                <input type="text" class="form-control" id="inputName" placeholder="Введите название задания"/>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="inputName"
+                  placeholder="Введите название задания"
+                />
               </div>
               <div class="form-group">
                 <label for="selectStars">Выберите дату</label>
@@ -100,7 +164,6 @@
               </div>
             </form>
             <!-- Конец формы в модельном окне -->
-
           </div>
           <!-- Кнопка добавления данных -->
           <div class="modal-footer">
@@ -113,9 +176,15 @@
     </div>
     <!-- КОНЕЦ МОДЕЛЬНОГО ОКНА ПО ДОБАВЛЕНЮ ДАННЫХ -->
 
-
     <!-- МОДЕЛЬНОЕ ОКНО ПО ЗМЕНЕНЮ ДАННЫХ -->
-    <div class="modal fade" id="modalChange" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div
+      class="modal fade"
+      id="modalChange"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalCenterTitle"
+      aria-hidden="true"
+    >
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -130,7 +199,12 @@
             <form>
               <div class="form-group">
                 <label for="inputName">Имя задачи</label>
-                <input type="text" class="form-control" id="changeName" placeholder="Введите название задачи"/>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="changeName"
+                  placeholder="Введите название задачи"
+                />
               </div>
               <div class="form-group">
                 <input id="datepickerChange" />
@@ -147,10 +221,17 @@
         </div>
       </div>
     </div>
-<!-- КОНЕЦ МОДЕЛЬНОЕ ОКНО ПО ЗМЕНЕНЮ ДАННЫХ  -->
+    <!-- КОНЕЦ МОДЕЛЬНОЕ ОКНО ПО ЗМЕНЕНЮ ДАННЫХ  -->
 
     <!-- Модальное окно для удаления данных  -->
-    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"aria-hidden="true">
+    <div
+      class="modal fade"
+      id="deleteModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -167,26 +248,43 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
-            <button id="deleteButton" type="button" class="btn btn-danger" data-dismiss="modal">Удалить</button>
+            <button id="deleteButton" type="button" class="btn btn-danger" data-dismiss="modal">
+              Удалить
+            </button>
           </div>
         </div>
       </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
     <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
     <script>
-        $('#datepicker').datepicker({
-            uiLibrary: 'bootstrap4'
-        });
-        $('#datepickerSearch').datepicker({
-            uiLibrary: 'bootstrap4'
-        });
-        $('#datepickerChange').datepicker({
-            uiLibrary: 'bootstrap4'
-        });
+      $('#datepicker').datepicker({
+        uiLibrary: 'bootstrap4',
+        format: 'mm/dd/yyyy',
+      });
+      $('#datepickerSearch').datepicker({
+        uiLibrary: 'bootstrap4',
+        format: 'mm/dd/yyyy',
+      });
+      $('#datepickerChange').datepicker({
+        uiLibrary: 'bootstrap4',
+        format: 'mm/dd/yyyy',
+      });
     </script>
   </body>
 </html>

@@ -2,7 +2,7 @@ import './styles.css';
 import View from './mvc/View';
 import Controller from './mvc/Controller';
 import Model from './mvc/Model';
-import { load } from './mvc/helpers'
+import { load } from './mvc/helpers';
 
 const todo = load();
 

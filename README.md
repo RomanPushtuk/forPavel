@@ -1,3 +1,4 @@
 # Andersen JS Course
 
-Запуск фронта - yarn start-client
+Запуск - yarn start-client
+Должно открыться окно в браузере.

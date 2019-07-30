@@ -1,8 +1,18 @@
 import EventEmitter from './EventEmitter';
 // Все HTML элементы
 import elements from './elements';
-import { ADD_RECORD, DELETE_RECORD, CHANGE_RECORD, SORT_TEXT_DOWN, SORT_TEXT_UP } from './constants';
-import { createRecord, getDataFromApp } from './helpers';
+import {
+  ADD_RECORD,
+  DELETE_RECORD,
+  CHANGE_RECORD,
+  SORT_TEXT_DOWN,
+  SORT_TEXT_UP,
+  SORT_DATE_DOWN,
+  SORT_DATE_UP,
+  SEARCH_ON_TEXT,
+  SEARCH_ON_DATE,
+} from './constants';
+import { createRecord, getDataFromApp, changeArrow, checkedChangeStyle } from './helpers';
 
 class View extends EventEmitter {
   constructor() {
@@ -10,6 +20,7 @@ class View extends EventEmitter {
 
     // Инициализируем элементы
     elements.call(this);
+    // --------------------------ГЛАВНЫЕ ФУНКЦИИ---------------------------
     // Клик по кнопке "ДОБАВИТЬ"
     this.addButton.addEventListener('click', this.handleAdd.bind(this));
 
@@ -21,7 +32,9 @@ class View extends EventEmitter {
 
     // Клик по кнопке "УДАЛИТЬ ДАННЫЕ"
     this.deleteButton.addEventListener('click', this.handleDelete.bind(this));
+    // --------------------------------ГЛАВНЫЕ ФУНКЦИИ КОНЕЦ-----------------------------
 
+    // --------------------------------СОРТИРОВКИ И ФИЛЬТРЫ----------------------------
     // Сортировка по тексту
     this.sortText.addEventListener('click', this.handleSortText.bind(this));
 
@@ -29,79 +42,84 @@ class View extends EventEmitter {
     this.sortDate.addEventListener('click', this.handleSortDate.bind(this));
 
     // Поиск по вводимому тексту
-    this.searchText.addEventListener('input', this.handleSearch.bind(this));
+    this.searchText.addEventListener('input', this.handleSearchOnText.bind(this));
 
     // Поиск по дате
-    this.datepickerSearchButton.addEventListener('click', this.handleSearchDate.bind(this));
+    this.datepickerSearchButton.addEventListener('click', this.handleSearchOnDate.bind(this));
+    // --------------------------------СОРТИРОВКИ И ФИЛЬТРЫ КОНЕЦ----------------------------
   }
 
+  //-------------------------- ГЛАВНЫЕ ФУНКЦИИ---------------------------------
+  // ДОБАВЛЕНИЕ
   handleAdd() {
-    const hostel = getDataFromApp.call(this, { mode: 'add' });
-    this.emit(ADD_RECORD, hostel);
-    this.clearModal();
+    // Проверка не пустые ли поля для заполнения
+    if (this.inputName.value && this.selectDate.value) {
+      const hostel = getDataFromApp.call(this, { mode: 'add' });
+      this.emit(ADD_RECORD, hostel);
+      this.clearModal();
+    } else {
+      // alert('Заполните все поля для добавления записи.');
+    }
   }
 
-  handleSearchDate(){
-    this.emit('SEARCH_DATE', this.datepickerSearch.value);
+  addTask(record) {
+    const elem = createRecord.call(this, record);
+    this.table.appendChild(elem);
   }
+  // ДОБАВЛЕНИЕ КОНЕЦ
 
-  handleSearch(evt){
-    this.emit('SEARCH_RECORD', evt.target.value);
-  }
-
+  // ИЗМЕНЕНИЕ ЗАПИСИ НАЧАЛО
   handleChange() {
-    const hostel = getDataFromApp.call(this, { mode: 'change' });
-    this.emit(CHANGE_RECORD, hostel);
-  }
-
-  handleDelete() {
-    const obj = getDataFromApp.call(this, { mode: 'delete' });
-    this.emit(DELETE_RECORD, obj);
-  }
-
-  handleSortText() {
-    // Cмотрим какая стрелочка
-    const direction = arrowText.innerText;
-    // Если стрелочка вниз, то меняем на обратную и делаем сортировку по возрастанию
-    if (direction == '↓'){
-      arrowText.innerText = '↑';
-      return this.emit(SORT_TEXT_DOWN, undefined);
+    if (this.changeName.value && this.datepickerChange.value) {
+      const hostel = getDataFromApp.call(this, { mode: 'change' });
+      this.emit(CHANGE_RECORD, hostel);
+    } else {
+      // alert('Заполните все поля для изменения записи');
     }
-    if (direction == '↑'){
-      arrowText.innerText = '↓';
-      return this.emit(SORT_TEXT_UP, undefined);
-    }
-    // При первом нажатии ставим стрелочку вниз, сортировка по убыванию
-    arrowText.innerText = '↓';
-    return this.emit(SORT_TEXT_UP, undefined);
   }
 
-  handleSortDate() {
-    this.emit('SORT_DATE', undefined);
-  }
-
-
-  changeRecord({ id, name, time, checked}) {
+  changeRecord({ id, name, time, checked }) {
     const element = document.getElementById(id);
     const [tdChecked, tdName, tdTime] = element.children;
-    tdChecked.innerText =  checked ? "Выполнено!" : "Ожидание";
+    tdChecked.innerText = checked ? 'Выполнено!' : 'Ожидание';
     tdName.innerText = name;
     tdTime.innerText = time;
   }
+  // ИЗМЕННЕНИЕ ЗАПИСИ КОНЕЦ
 
-  sortTextV(data){
-    this.table.innerHTML = '';;
-    this.showTable(data);
+  // УДАЛЕНИЕ ЗАПИСИ НАЧАЛО
+  handleDelete() {
+    const obj = getDataFromApp.call(this, { mode: 'delete' });
+    this.emit(DELETE_RECORD, obj);
   }
 
   deleteRecord(id) {
     console.log(id);
     document.getElementById(id).parentNode.removeChild(document.getElementById(id));
   }
+  // УДАЛЕНИЕ ЗАПИСИ КОНЕЦ
+  //  --------------------ГЛАВНЫЕ ФУНКЦИИ КОНЕЦ------------------------
 
-  addTask(record) {
-    const elem = createRecord.call(this, record)
-    this.table.appendChild(elem);
+  // ---------------------СОРТИРОВКИ И ФИЛЬТРЫ---------------------------
+  // ПОИСК ПО ДАТЕ
+  handleSearchOnDate() {
+    this.emit(SEARCH_ON_DATE, this.datepickerSearch.value);
+  }
+  // ПОИСК ПО ВВОДИМОМУ ТЕКСТУ
+  handleSearchOnText(evt) {
+    this.emit(SEARCH_ON_TEXT, evt.target.value);
+  }
+
+  handleSortText() {
+    // меняет стрелку вверх вниз
+    // и производит сортировку по тексту
+    changeArrow.call(this, { mode: 'text' });
+  }
+
+  handleSortDate() {
+    // меняет стрелку вверх вниз
+    // и производит сортировку по дате
+    changeArrow.call(this, { mode: 'date' });
   }
 
   // Отчищаем модальное окно добавления при выходе из него
@@ -110,29 +128,19 @@ class View extends EventEmitter {
     this.selectDate.value = '';
   }
 
-  checked({ id, checked }){
-    console.log(id);
-    const todo = document.getElementById(id);
-    if(checked){
-      //Применяем зачеркнутые стили
-      todo.children[0].classList.add('checked-true');
-      todo.children[0].innerText = 'Выполнено';
-      todo.children[1].classList.add('checked-true');
-      todo.children[2].classList.add('checked-true');
-    }else{
-      //Возвражаем нормальные стили
-      todo.children[0].classList.remove('checked-true');
-      todo.children[0].innerText = 'Ожидание';
-      todo.children[1].classList.remove('checked-true');
-      todo.children[2].classList.remove('checked-true');
-    }
+  checked(todo) {
+    console.log(todo);
+    // Изменяет стили при нажатии на задачу ПРИ КЛИКЕ НА - ОЖИДАНИЕ
+    checkedChangeStyle(todo);
   }
 
   showTable(data) {
+    this.table.innerHTML = '';
     data.forEach(item => {
       this.table.appendChild(createRecord.call(this, item));
     });
   }
+  // ---------------------СОРТИРОВКИ И ФИЛЬТРЫ КОНЕЦ---------------------------
 }
 
 export default View;

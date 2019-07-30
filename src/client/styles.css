@@ -2,12 +2,18 @@ body {
   padding: 0;
   margin: 0;
 }
+
 .row {
   margin: 0;
 }
-.checked-true {
+
+.checked {
   text-decoration : line-through;
   color: #5a5a5a;
+}
+
+.errorInput {
+  border : 1px solid red;
 }
 
 .accordionPadding {
@@ -16,4 +22,8 @@ body {
 
 .datepickerSearchButton {
   margin-top: 10px;
+}
+
+.pointer:hover{
+  cursor: pointer;
 }

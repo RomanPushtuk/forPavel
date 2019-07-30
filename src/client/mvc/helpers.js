@@ -1,4 +1,12 @@
-import requests from './Requests';
+// ЗДЕСЬ НАХОДЯТСЯ ВСЕ ФУНКЦИИ
+import {
+  CHECKED,
+  SORT_TEXT_DOWN,
+  SORT_TEXT_UP,
+  SORT_DATE_DOWN,
+  SORT_DATE_UP,
+  ADD_TO_STORAGE,
+} from './constants';
 // Все HTML элемены проекта с коорым рабоаем
 
 // Функция которая выполнится при нажатии на кнопку удалить
@@ -10,15 +18,6 @@ function hendlerDelete(evt) {
   this.idDeleteItem.value = perent.id;
 }
 
-// function handlerChecked(evt) {
-//   const perent = evt.target.parentNode;
-//   const todo = document.getElementById(perent.id);
-//   todo.children.forEach(item => {
-//     item.classList.toggle('checked-true');
-//   })
-//   // console.log(perent);
-// }
-
 // Функция которая выполнится при нажатии на кнопку редактировать
 function hendlerChenge(evt) {
   const perent = evt.target.parentNode.parentNode;
@@ -27,22 +26,45 @@ function hendlerChenge(evt) {
   this.changeName.value = name.innerText;
   this.datepickerChange.value = time.innerText;
 }
+function checkedChangeStyle({ id, checked }) {
+  const todo = document.getElementById(id);
+  if (checked) {
+    //Применяем зачеркнутые стили
+    todo.children[0].classList.add('checked');
+    todo.children[0].innerText = 'Выполнено!';
+    todo.children[1].classList.add('checked');
+    todo.children[2].classList.add('checked');
+  } else {
+    //Возвражаем нормальные стили
+    todo.children[0].classList.remove('checked');
+    todo.children[0].innerText = 'Ожидание';
+    todo.children[1].classList.remove('checked');
+    todo.children[2].classList.remove('checked');
+  }
+}
+
+// возвращает саммив объектов у которых свойство target начинается со значения text
+function searchObjs(obj, target, text) {
+  if (text === '') {
+    return obj;
+  }
+  return obj.filter(item => {
+    if (item[target].match(`^${text}`)) {
+      return true;
+    }
+  });
+}
 
 // Создаем строку таблцы
-function createRecord({ id, name, time, checked}) {
+function createRecord({ id, name, time, checked }) {
+  // Строка таблицы
   const trRecord = document.createElement('tr');
   trRecord.id = id;
 
-  const tdChecked = document.createElement('th');
-  tdChecked.innerText = checked ? "Выполнено!" : "Ожидание";
-  tdChecked.addEventListener('click', () => {
-    this.emit('CHECKED', id)
-  });
-
   const thName = document.createElement('td');
   thName.innerText = name;
-  const tdTime = document.createElement('td');
-  tdTime.innerText = time;
+  const tdDate = document.createElement('td');
+  tdDate.innerText = time;
 
   const tdDelete = document.createElement('td');
   const tdChange = document.createElement('td');
@@ -65,12 +87,64 @@ function createRecord({ id, name, time, checked}) {
   tdDelete.appendChild(btnDelete);
   tdChange.appendChild(btnChange);
 
+  const tdChecked = document.createElement('th');
+  tdChecked.classList.add('pointer');
+  if (checked) {
+    tdChecked.innerText = 'Выполнено!';
+    tdChecked.classList.add('checked');
+    thName.classList.add('checked');
+    tdDate.classList.add('checked');
+    // console.log(tdChecked, thName, tdTime);
+  } else {
+    tdChecked.innerText = 'Ожидание';
+    tdChecked.classList.remove('checked');
+    thName.classList.remove('checked');
+    tdDate.classList.remove('checked');
+  }
+  tdChecked.addEventListener('click', evt => {
+    this.emit(CHECKED, id);
+  });
+
   trRecord.appendChild(tdChecked);
   trRecord.appendChild(thName);
-  trRecord.appendChild(tdTime);
+  trRecord.appendChild(tdDate);
   trRecord.appendChild(tdDelete);
   trRecord.appendChild(tdChange);
   return trRecord;
+}
+
+function changeArrow({ mode }) {
+  if (mode === 'text') {
+    // Cмотрим какая стрелочка
+    const direction = arrowText.innerText;
+    // Если стрелочка вниз, то меняем на обратную и делаем сортировку по возрастанию
+    if (direction == '↓') {
+      arrowText.innerText = '↑';
+      return this.emit(SORT_TEXT_DOWN, undefined);
+    }
+    if (direction == '↑') {
+      arrowText.innerText = '↓';
+      return this.emit(SORT_TEXT_UP, undefined);
+    }
+    // При первом нажатии ставим стрелочку вниз, сортировка по убыванию
+    arrowText.innerText = '↓';
+    return this.emit(SORT_TEXT_UP, undefined);
+  }
+  if (mode === 'date') {
+    const direction = arrowDate.innerText;
+    // Если стрелочка вниз, то меняем на обратную и делаем сортировку по возрастанию
+    if (direction == '↓') {
+      arrowDate.innerText = '↑';
+      return this.emit(SORT_DATE_DOWN, undefined);
+    }
+    if (direction == '↑') {
+      arrowDate.innerText = '↓';
+      return this.emit(SORT_DATE_UP, undefined);
+    }
+    // При первом нажатии ставим стрелочку вниз, сортировка по убыванию
+    arrowDate.innerText = '↓';
+    return this.emit(SORT_DATE_UP, undefined);
+  }
 }
 
 // Для быстрого получения объекта со значениями из разных форм
@@ -95,26 +169,34 @@ function getDataFromApp({ mode }) {
   }
 }
 
-function dynamicSort(property) {
-  var sortOrder = 1;
-  if(property[0] === "-") {
-      sortOrder = -1;
-      property = property.substr(1);
-  }
-  return function (a,b) {
-      var result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
-      return result * sortOrder;
-  }
-}
-
+// Генерируем задачам рандомный ID
 function generateId() {
-  return '_' + Math.random().toString(36).substr(2, 9);
+  return (
+    '_' +
+    Math.random()
+      .toString(36)
+      .substr(2, 9)
+  );
 }
 
-function load(){
-  if(localStorage.getItem('ADD_TO_STORSGE')){
-    return JSON.parse(localStorage.getItem('ADD_TO_STORSGE'));
+// Загружаем данные из стореджа
+function load() {
+  if (localStorage.getItem(ADD_TO_STORAGE)) {
+    return JSON.parse(localStorage.getItem(ADD_TO_STORAGE));
   }
 }
+// Созраняем данные
+function save(data) {
+  localStorage.setItem(ADD_TO_STORAGE, JSON.stringify(data));
+}
 
-export { createRecord, getDataFromApp, load, generateId };
+export {
+  createRecord,
+  getDataFromApp,
+  load,
+  generateId,
+  changeArrow,
+  checkedChangeStyle,
+  searchObjs,
+  save,
+};
