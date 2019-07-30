@@ -180,7 +180,7 @@ function generateId() {
 }
 
 // Загружаем данные из стореджа
-function load() {
+function load(boool) {
   if (localStorage.getItem(ADD_TO_STORAGE)) {
     return JSON.parse(localStorage.getItem(ADD_TO_STORAGE));
   }
