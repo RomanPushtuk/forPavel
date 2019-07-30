@@ -1,5 +1,5 @@
 // import { ADD_TO_STORAGE } from './constants';
-import { generateId, searchObjs, save } from './helpers';
+import { generateId, searchObjs, sortOfText, save } from './helpers';
 
 class Model {
   constructor(data = []) {
@@ -8,13 +8,12 @@ class Model {
     // Отфильтрованные данные которые уже на экране
     this.dataFilter = this.data;
   }
+
   // изменяет у элемента свойтво checked
   checkedToDo(id) {
     const index = this.getToDo(id);
-    console.log(id);
     this.data[index].checked = !this.data[index].checked;
     console.log(this.data);
-    save(this.data);
     return this.data[index];
   }
 
@@ -29,13 +28,7 @@ class Model {
 
   // Сортировка по тексту
   sortTextUp() {
-    return this.dataFilter.sort(function(a, b) {
-      const nameA = a.name.toLowerCase();
-      const nameB = b.name.toLowerCase();
-      if (nameA < nameB) return -1;
-      if (nameA > nameB) return 1;
-      return 0;
-    });
+    return this.dataFilter.sort(sortOfText);
   }
 
   sortTextDown() {
@@ -83,7 +76,7 @@ class Model {
   deleteTask({ id }) {
     // Удаляем данные
     this.data.forEach((item, i) => {
-      if (item.id == id) {
+      if (item.id === id) {
         this.data.splice(i, 1);
       }
     });

@@ -7,7 +7,6 @@ import {
   SORT_DATE_DOWN,
   SORT_DATE_UP,
   CHECKED,
-  SEARCH_RECORD,
   SEARCH_ON_TEXT,
   SEARCH_ON_DATE,
 } from './constants';
@@ -17,13 +16,13 @@ class Controller {
     this.model = model;
     this.view = view;
 
-    //-------------------ГЛАВНЫЕ ФУНКЦИИ-------------------
+    // -------------------ГЛАВНЫЕ ФУНКЦИИ-------------------
     view.on(ADD_RECORD, this.addTask.bind(this));
     view.on(CHANGE_RECORD, this.changeTask.bind(this));
     view.on(DELETE_RECORD, this.deleteTask.bind(this));
-    //--------------------ГЛАВНЫЕ ФУНКЦИИ КОНЕЦ--------------
+    // --------------------ГЛАВНЫЕ ФУНКЦИИ КОНЕЦ--------------
 
-    //ДЛЯ ЗАЧЕРКИВАНИЯ
+    // ДЛЯ ЗАЧЕРКИВАНИЯ
     view.on(CHECKED, this.checked.bind(this));
 
     // --------------------СОРТИРОВКИ И ФИЛЬТРЫ------------------
@@ -35,7 +34,7 @@ class Controller {
 
     view.on(SEARCH_ON_TEXT, this.searchOnText.bind(this));
     view.on(SEARCH_ON_DATE, this.searchOnDate.bind(this));
-    //------------------------СОРТИРОВКИ И ФИЛЬТРЫ КОНЕЦ--------------------
+    // ------------------------СОРТИРОВКИ И ФИЛЬТРЫ КОНЕЦ--------------------
     view.showTable(model.data);
   }
 
@@ -44,6 +43,7 @@ class Controller {
     const data = this.model.searchOnDate(date);
     this.view.showTable(data);
   }
+
   // Поиск по тексту
   searchOnText(text) {
     const data = this.model.searchOnText(text);
@@ -87,7 +87,6 @@ class Controller {
   // Изменение задачи
   changeTask(hostel) {
     const record = this.model.changeTask(hostel);
-    console.log(record);
     this.view.changeRecord(record);
   }
 

@@ -19,23 +19,24 @@ function hendlerDelete(evt) {
 }
 
 // Функция которая выполнится при нажатии на кнопку редактировать
-function hendlerChenge(evt) {
+function hendlerChange(evt) {
   const perent = evt.target.parentNode.parentNode;
   const [checked, name, time] = perent.children;
   this.idChengeItem.value = evt.target.parentNode.parentNode.id;
   this.changeName.value = name.innerText;
   this.datepickerChange.value = time.innerText;
 }
+
 function checkedChangeStyle({ id, checked }) {
   const todo = document.getElementById(id);
   if (checked) {
-    //Применяем зачеркнутые стили
+    // Применяем зачеркнутые стили
     todo.children[0].classList.add('checked');
     todo.children[0].innerText = 'Выполнено!';
     todo.children[1].classList.add('checked');
     todo.children[2].classList.add('checked');
   } else {
-    //Возвражаем нормальные стили
+    // Возвражаем нормальные стили
     todo.children[0].classList.remove('checked');
     todo.children[0].innerText = 'Ожидание';
     todo.children[1].classList.remove('checked');
@@ -82,7 +83,7 @@ function createRecord({ id, name, time, checked }) {
   btnChange.innerText = 'Редактировать';
   btnChange.setAttribute('data-toggle', 'modal');
   btnChange.setAttribute('data-target', '#modalChange');
-  btnChange.addEventListener('click', hendlerChenge.bind(this));
+  btnChange.addEventListener('click', hendlerChange.bind(this));
 
   tdDelete.appendChild(btnDelete);
   tdChange.appendChild(btnChange);
@@ -101,7 +102,7 @@ function createRecord({ id, name, time, checked }) {
     thName.classList.remove('checked');
     tdDate.classList.remove('checked');
   }
-  tdChecked.addEventListener('click', evt => {
+  tdChecked.addEventListener('click', () => {
     this.emit(CHECKED, id);
   });
 
@@ -113,16 +114,24 @@ function createRecord({ id, name, time, checked }) {
   return trRecord;
 }
 
+function sortOfText(a, b) {
+  const nameA = a.name.toLowerCase();
+  const nameB = b.name.toLowerCase();
+  if (nameA < nameB) return -1;
+  if (nameA > nameB) return 1;
+  return 0;
+}
+
 function changeArrow({ mode }) {
   if (mode === 'text') {
     // Cмотрим какая стрелочка
     const direction = arrowText.innerText;
     // Если стрелочка вниз, то меняем на обратную и делаем сортировку по возрастанию
-    if (direction == '↓') {
+    if (direction === '↓') {
       arrowText.innerText = '↑';
       return this.emit(SORT_TEXT_DOWN, undefined);
     }
-    if (direction == '↑') {
+    if (direction === '↑') {
       arrowText.innerText = '↓';
       return this.emit(SORT_TEXT_UP, undefined);
     }
@@ -133,11 +142,11 @@ function changeArrow({ mode }) {
   if (mode === 'date') {
     const direction = arrowDate.innerText;
     // Если стрелочка вниз, то меняем на обратную и делаем сортировку по возрастанию
-    if (direction == '↓') {
+    if (direction === '↓') {
       arrowDate.innerText = '↑';
       return this.emit(SORT_DATE_DOWN, undefined);
     }
-    if (direction == '↑') {
+    if (direction === '↑') {
       arrowDate.innerText = '↓';
       return this.emit(SORT_DATE_UP, undefined);
     }
@@ -171,16 +180,13 @@ function getDataFromApp({ mode }) {
 
 // Генерируем задачам рандомный ID
 function generateId() {
-  return (
-    '_' +
-    Math.random()
-      .toString(36)
-      .substr(2, 9)
-  );
+  return `_${Math.random()
+    .toString(36)
+    .substr(2, 9)}`;
 }
 
 // Загружаем данные из стореджа
-function load(boool) {
+function load() {
   if (localStorage.getItem(ADD_TO_STORAGE)) {
     return JSON.parse(localStorage.getItem(ADD_TO_STORAGE));
   }
@@ -198,5 +204,6 @@ export {
   changeArrow,
   checkedChangeStyle,
   searchObjs,
+  sortOfText,
   save,
 };

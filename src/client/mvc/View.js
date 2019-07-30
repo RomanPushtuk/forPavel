@@ -5,10 +5,6 @@ import {
   ADD_RECORD,
   DELETE_RECORD,
   CHANGE_RECORD,
-  SORT_TEXT_DOWN,
-  SORT_TEXT_UP,
-  SORT_DATE_DOWN,
-  SORT_DATE_UP,
   SEARCH_ON_TEXT,
   SEARCH_ON_DATE,
 } from './constants';
@@ -49,16 +45,16 @@ class View extends EventEmitter {
     // --------------------------------СОРТИРОВКИ И ФИЛЬТРЫ КОНЕЦ----------------------------
   }
 
-  //-------------------------- ГЛАВНЫЕ ФУНКЦИИ---------------------------------
+  // -------------------------- ГЛАВНЫЕ ФУНКЦИИ---------------------------------
   // ДОБАВЛЕНИЕ
   handleAdd() {
     // Проверка не пустые ли поля для заполнения
     if (this.inputName.value && this.selectDate.value) {
-      const hostel = getDataFromApp.call(this, { mode: 'add' });
-      this.emit(ADD_RECORD, hostel);
+      const obj = getDataFromApp.call(this, { mode: 'add' });
+      this.emit(ADD_RECORD, obj);
       this.clearModal();
     } else {
-      // alert('Заполните все поля для добавления записи.');
+      alert('Заполните все поля для добавления записи.');
     }
   }
 
@@ -71,10 +67,10 @@ class View extends EventEmitter {
   // ИЗМЕНЕНИЕ ЗАПИСИ НАЧАЛО
   handleChange() {
     if (this.changeName.value && this.datepickerChange.value) {
-      const hostel = getDataFromApp.call(this, { mode: 'change' });
-      this.emit(CHANGE_RECORD, hostel);
+      const obj = getDataFromApp.call(this, { mode: 'change' });
+      this.emit(CHANGE_RECORD, obj);
     } else {
-      // alert('Заполните все поля для изменения записи');
+      alert('Заполните все поля для изменения записи');
     }
   }
 
@@ -94,7 +90,6 @@ class View extends EventEmitter {
   }
 
   deleteRecord(id) {
-    console.log(id);
     document.getElementById(id).parentNode.removeChild(document.getElementById(id));
   }
   // УДАЛЕНИЕ ЗАПИСИ КОНЕЦ
@@ -129,7 +124,6 @@ class View extends EventEmitter {
   }
 
   checked(todo) {
-    console.log(todo);
     // Изменяет стили при нажатии на задачу ПРИ КЛИКЕ НА - ОЖИДАНИЕ
     checkedChangeStyle(todo);
   }
