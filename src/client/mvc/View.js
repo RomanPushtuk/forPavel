@@ -1,13 +1,7 @@
 import EventEmitter from './EventEmitter';
 // Все HTML элементы
 import elements from './elements';
-import {
-  ADD_RECORD,
-  DELETE_RECORD,
-  CHANGE_RECORD,
-  SEARCH_ON_TEXT,
-  SEARCH_ON_DATE,
-} from './constants';
+import { ADD_RECORD, DELETE_RECORD, CHANGE_RECORD, SEARCH } from './constants';
 import { createRecord, getDataFromApp, changeArrow, checkedChangeStyle } from './helpers';
 
 class View extends EventEmitter {
@@ -98,11 +92,19 @@ class View extends EventEmitter {
   // ---------------------СОРТИРОВКИ И ФИЛЬТРЫ---------------------------
   // ПОИСК ПО ДАТЕ
   handleSearchOnDate() {
-    this.emit(SEARCH_ON_DATE, this.datepickerSearch.value);
+    this.emit(SEARCH, {
+      name: this.searchText.value,
+      date: this.datepickerSearch.value,
+    });
   }
+
   // ПОИСК ПО ВВОДИМОМУ ТЕКСТУ
   handleSearchOnText(evt) {
-    this.emit(SEARCH_ON_TEXT, evt.target.value);
+    const name = evt.target.value;
+    this.emit(SEARCH, {
+      name,
+      date: this.datepickerSearch.value,
+    });
   }
 
   handleSortText() {

@@ -129,30 +129,30 @@ function changeArrow({ mode }) {
     // Если стрелочка вниз, то меняем на обратную и делаем сортировку по возрастанию
     if (direction === '↓') {
       arrowText.innerText = '↑';
-      return this.emit(SORT_TEXT_DOWN, undefined);
+      return this.emit(SORT_TEXT_DOWN);
     }
     if (direction === '↑') {
       arrowText.innerText = '↓';
-      return this.emit(SORT_TEXT_UP, undefined);
+      return this.emit(SORT_TEXT_UP);
     }
     // При первом нажатии ставим стрелочку вниз, сортировка по убыванию
     arrowText.innerText = '↓';
-    return this.emit(SORT_TEXT_UP, undefined);
+    return this.emit(SORT_TEXT_UP);
   }
   if (mode === 'date') {
     const direction = arrowDate.innerText;
     // Если стрелочка вниз, то меняем на обратную и делаем сортировку по возрастанию
     if (direction === '↓') {
       arrowDate.innerText = '↑';
-      return this.emit(SORT_DATE_DOWN, undefined);
+      return this.emit(SORT_DATE_DOWN);
     }
     if (direction === '↑') {
       arrowDate.innerText = '↓';
-      return this.emit(SORT_DATE_UP, undefined);
+      return this.emit(SORT_DATE_UP);
     }
     // При первом нажатии ставим стрелочку вниз, сортировка по убыванию
     arrowDate.innerText = '↓';
-    return this.emit(SORT_DATE_UP, undefined);
+    return this.emit(SORT_DATE_UP);
   }
 }
 

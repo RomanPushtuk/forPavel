@@ -11,7 +11,9 @@ body {
   text-decoration : line-through;
   color: #5a5a5a;
 }
-
+.searchOnText {
+  margin-bottom: 15px;
+}
 .errorInput {
   border : 1px solid red;
 }

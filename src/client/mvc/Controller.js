@@ -7,8 +7,7 @@ import {
   SORT_DATE_DOWN,
   SORT_DATE_UP,
   CHECKED,
-  SEARCH_ON_TEXT,
-  SEARCH_ON_DATE,
+  SEARCH,
 } from './constants';
 
 class Controller {
@@ -32,21 +31,14 @@ class Controller {
     view.on(SORT_DATE_UP, this.sortDateUp.bind(this));
     view.on(SORT_DATE_DOWN, this.sortDateDown.bind(this));
 
-    view.on(SEARCH_ON_TEXT, this.searchOnText.bind(this));
-    view.on(SEARCH_ON_DATE, this.searchOnDate.bind(this));
+    view.on(SEARCH, this.searchOn.bind(this));
     // ------------------------СОРТИРОВКИ И ФИЛЬТРЫ КОНЕЦ--------------------
     view.showTable(model.data);
   }
 
-  // Поиск по дате
-  searchOnDate(date) {
-    const data = this.model.searchOnDate(date);
-    this.view.showTable(data);
-  }
-
   // Поиск по тексту
-  searchOnText(text) {
-    const data = this.model.searchOnText(text);
+  searchOn(obj) {
+    const data = this.model.commonSearch(obj);
     this.view.showTable(data);
   }
 

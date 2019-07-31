@@ -6,6 +6,5 @@ export const SORT_TEXT_UP = 'sortTextUp';
 export const SORT_DATE_DOWN = 'sortDateDown';
 export const SORT_DATE_UP = 'sortDateUp';
 export const CHECKED = 'checked';
-export const SEARCH_ON_TEXT = 'searchOnText';
-export const SEARCH_ON_DATE = 'searchOnDate';
+export const SEARCH = 'search';
 export const ADD_TO_STORAGE = 'addToStorage';

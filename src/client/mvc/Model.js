@@ -13,16 +13,13 @@ class Model {
   checkedToDo(id) {
     const index = this.getToDo(id);
     this.data[index].checked = !this.data[index].checked;
-    console.log(this.data);
     return this.data[index];
   }
 
   // Поиск индекса нужного объекта по id
   getToDo(id) {
     return this.data.findIndex(item => {
-      if (item.id === id) {
-        return true;
-      }
+      return item.id === id;
     });
   }
 
@@ -35,14 +32,9 @@ class Model {
     return this.sortTextUp().reverse();
   }
 
-  // Возвражает все записи которые начинаются с вводимого текста
-  searchOnText(text) {
-    this.dataFilter = searchObjs(this.data, 'name', text);
-    return this.dataFilter;
-  }
-  // Возвращает все записи которые начинаются с выбранной даты
-  searchOnDate(text) {
-    this.dataFilter = searchObjs(this.data, 'time', text);
+  commonSearch({ name, date }) {
+    const filter = searchObjs(this.data, 'name', name);
+    this.dataFilter = searchObjs(filter, 'time', date);
     return this.dataFilter;
   }
 

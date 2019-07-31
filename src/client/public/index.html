@@ -34,7 +34,7 @@
                   aria-expanded="true"
                   aria-controls="collapseOne"
                 >
-                  Искать по тексту
+                  Фильтры
                 </button>
               </div>
               <div
@@ -48,40 +48,15 @@
                   <input
                     id="search"
                     type="text"
-                    class="form-control"
+                    class="form-control searchOnText"
                     placeholder="Поиск по тексту"
                   />
-                </div>
-              </div>
-            </div>
-
-            <div class="card">
-              <div class="card-header row" id="headingTwo">
-                <button
-                  class="btn btn-primary collapsed col"
-                  type="button"
-                  data-toggle="collapse"
-                  data-target="#collapseTwo"
-                  aria-expanded="false"
-                  aria-controls="collapseTwo"
-                >
-                  Искать по дате
-                </button>
-              </div>
-              <div
-                id="collapseTwo"
-                class="collapse"
-                aria-labelledby="headingTwo"
-                data-parent="#accordionExample"
-              >
-                <div class="card-body row">
-                  <!-- ПОИСК ЗАДАЧ ПО ОПРЕДЕЛЕННОЙ ДАТЕ -->
-                  <input id="datepickerSearch"/ >
+                  <input class="datepickerSearch" id="datepickerSearch"/ >
                   <button
                     id="datepickerSearchButton"
-                    class="btn btn-primary datepickerSearchButton col"
+                    class="btn btn-success datepickerSearchButton col"
                   >
-                    Поиск
+                    Поиск по дате
                   </button>
                 </div>
               </div>
